@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
     std::ifstream parsedFile;
     std::ofstream sortedOutput;
-    std::string path = "interim/sheet_contents.txt";
+    std::string path = "../interim/sheet_contents.txt";
     parsedFile.open(path);
 
     for (int i = 0; i < std::stoi(argv[1]); i++) {
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    sortedOutput.open("interim/sorted_companies.txt");
+    sortedOutput.open("../interim/sorted_companies.txt");
     if (sortedOutput.is_open()) {
         for (Company c: allCompanies)
             sortedOutput << c << "\n";

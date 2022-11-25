@@ -3,12 +3,12 @@ from difflib import SequenceMatcher
 import sys
 
 def main():
-    wrkbk = openpyxl.load_workbook("/Users/brianmatzelle/projects/NICK_sort_companies/sheet.xlsx")
-    output = open("/Users/brianmatzelle/projects/NICK_sort_companies/interim/sheet_contents.txt","w+")
+    wrkbk = openpyxl.load_workbook("/Users/brianmatzelle/projects/string_sorting/sheet.xlsx")
+    output = open("/Users/brianmatzelle/projects/string_sorting/interim/sheet_contents.txt","w+")
     
     sh = wrkbk.active
 
-    list_count = int(sys.argv[1]) + 1
+    list_count = int(sys.argv[1])
     lists = [[]]
     for i in range(list_count):
         lists.append([])
