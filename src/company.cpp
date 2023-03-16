@@ -13,8 +13,7 @@ Company::Company(std::string name) {
 
 bool Company::isSimilar(std::string name) {
     double dist = jaroWinklerDistance(name, this->companyName);
-    // std::cout << name << ": d=" << dist << std::endl;
-    return (dist >= .9) ? true : false;
+    return (dist >= .9) ? true : false;                                 // CHANGE THIS NUMBER TO AFFECT ACCURACEY
 }
 
 void Company::addAlias(std::string alias) {

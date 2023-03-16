@@ -13,17 +13,23 @@ public:
     bool operator==(const Company& rhs) { return (this->companyName == rhs.companyName) ? true : false; };
     void addAlias(std::string alias);
     inline friend std::ostream& operator<<(std::ostream &os, const Company &c) {
-        os << "Company [ ";
-        for (unsigned i = 0; i < c.list.size(); i++)
-            os << c.list[i] << ", ";
-        os << " ]";
+        os << 
+        c.id <<
+        "-";
+        for (unsigned i = 0; i < c.list.size(); i++) {
+            os << c.list[i];
+            if (i < c.list.size()-1) 
+                os << "|";
+        }
+        os << "-";
         return os;
     }
 
 private:
     std::string companyName;
     std::vector<std::string> list;
-    std::string id;
+    std::string id;                 // id = first 2 letters from list[0] + id_num
+    int id_num;
 };
 
 
