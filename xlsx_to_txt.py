@@ -29,8 +29,8 @@ def main():
 
     # list_count = int(sys.argv[1])
     list_count = 2 # is this always true?
-    # lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
-    lists = [[]]
+    lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
+    # lists = [[]]
 
     for i in range(list_count):
         lists.append([])
