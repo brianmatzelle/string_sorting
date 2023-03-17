@@ -27,23 +27,28 @@ def main():
     output = open(output_abs_file_path, "w+")
     sh = wrkbk.active
 
+    # INIT LISTS
     # list_count = int(sys.argv[1])
     list_count = 2 # is this always true?
-    lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
-    # lists = [[]]
-
+    lists = []
     for i in range(list_count):
         lists.append([])
+    # INIT LISTS
 
     # iterate through excel and store data
-    for i in range(1, sh.max_row+1):                # range starts from 1 because excel sheets start from 1
-        for j in range(1, sh.max_column+1):
-            cell_obj = sh.cell(row=i, column=j)
+    list_i = 0      # list_i keeps track of which list we're appending, necessary to handle different file formats
+    for i in range(1, sh.max_column+1):                # range starts from 1 because excel sheets start from 1
+        if sh.cell(row=1, column=i).value is None and sh.cell(row=2, column=i).value is None:   # if 1st and 2nd elements of the i-th column are empty, assume the whole column is empty
+            continue
+        for j in range(1, sh.max_row+1):
+            cell_obj = sh.cell(row=j, column=i)
             cell = str(cell_obj.value)
-            if cell == "Grand Total" or cell.startswith("List") or cell.startswith("LIST"):
+            if cell == "Grand Total" or "list" in cell or "List" in cell or "LIST" in cell: # so we don't include list headers
                     continue
-            elif cell != "None":
-                lists[j-1].append(cell)             # j-1 because the loop starts at 1, since excel files start at 1 (otherwise lists[0] would be empty)
+            elif cell != "None":            # "None" is the string value xlsx gives to empty cells
+                lists[list_i].append(cell)
+        list_i += 1
+    # iterate through excel and store data
 
     for l in lists:
         for j in l:
