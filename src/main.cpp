@@ -52,7 +52,7 @@ int main() {
 
     std::vector<Company> allCompanies = buildSortedCompanies(lists);
 
-    path = "interim/sorted_companies.txt";
+    path = "data/sorted_companies.txt";
     std::ofstream sortedOutput(path);
     if (sortedOutput.fail()) {
         std::cout << "Error creating sorted_output.txt" << std::endl;
