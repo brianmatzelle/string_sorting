@@ -17,23 +17,14 @@ int main() {
 
         /* GET PAST DATA (pseudo database) */
         std::vector<std::string> pastDataVec = getPastDataVec();
-        lists.push_back(pastDataVec);
+        lists.push_back(pastDataVec);       // pastDataVec needs to be added first to maintain proper IDs
         /* GET PAST DATA (pseudo database) */
 
-    // if (argc > 1) {
-    //     std::cout << "ERROR: no arguments needed for this program." << std::endl;
-    //     return 0;
-    // }
     int list_count = 2;     // is this always true? same line in python file
     for (int i = 0; i < list_count; i++) {
         lists.push_back(str_v());           // each list is a set, the sets are then stored in this var
     }
     /* INITIATE LISTS */
-
-
-    // std::set<std::string> pastDataSet;
-    // for (std::string str : pastDataVec)
-    //     pastDataSet.insert(str);
 
     /* PARSE THROUGH PYTHON GENERATED LIST */
     std::ifstream parsedFile;
@@ -51,7 +42,6 @@ int main() {
             list_i++;
             continue;
         }
-        // lists[list_i].push(line);     // add the company string to its list's queue
         else if ( !alreadyExists(pastDataVec, line) ) {
             pastDataVec.push_back(line);
             lists[list_i].push_back(line);
@@ -63,16 +53,26 @@ int main() {
 
     std::vector<Company> allCompanies = buildSortedCompanies(lists);
 
-    std::ofstream sortedOutput;
-    sortedOutput.open("interim/sorted_companies.txt");
+    path = "interim/sorted_companies.txt";
+    std::ofstream sortedOutput(path);
+    // sortedOutput.open(path);
+    if (sortedOutput.fail()) {
+        // std::cout << "Error in main.cpp, could not open \"" <<  path << "\", does this file exist?" << std::endl;
+        std::cout << "Error creating sorted_output.txt" << std::endl;
+        return 0;
+    }
     if (sortedOutput.is_open()) {
         for (Company c: allCompanies)
             sortedOutput << c << "\n";
         sortedOutput.close();
     }
 
-    std::ofstream ammendPastData;
-    ammendPastData.open("data/past_companies.txt");
+    path = "data/past_companies.txt";
+    std::ofstream ammendPastData(path);
+    // ammendPastData.open(path);
+    if (ammendPastData.fail()) {
+        std::cout << "Error writing to past_companies.txt" << std::endl;
+    }
     if (ammendPastData.is_open()) {
         for (std::string str: pastDataVec)
             ammendPastData << str << "\n";

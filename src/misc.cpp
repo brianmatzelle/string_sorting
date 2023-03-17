@@ -37,38 +37,16 @@ std::vector<Company> buildSortedCompanies(const Lists &lists) {
     return allCompanies;
 }
 
-// str_s getPastDataSet() {
-//     str_s pastData;
-//     std::ifstream infile;
-//     std::string path = "data/past_companies.txt";
-//     infile.open(path);
-
-//     int id_num = 10000;
-//     if (infile.fail()) {
-//         std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
-//         exit(0);
-//     }
-//     while (!infile.eof()) {
-//         std::string line;
-//         getline(infile, line);
-//         if (line != "") {
-//             pastData.insert(line);
-//             id_num++;
-//         }
-//     }
-//     return pastData;
-// }
-
 std::vector<std::string> getPastDataVec() {
     std::vector<std::string> pastData;
     std::ifstream infile;
     std::string path = "data/past_companies.txt";
     infile.open(path);
-
     int id_num = 10000;
     if (infile.fail()) {
-        std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
-        exit(0);
+        // std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
+        std::ifstream newFile("data/past_companies.txt");
+        return pastData;
     }
     while (!infile.eof()) {
         std::string line;
@@ -90,10 +68,7 @@ bool alreadyExists(const std::vector<std::string>& pastData, const std::string& 
 }
 
 void printPastData(const std::vector<std::string>& pastData) {
-    std::ofstream outfile;
-    outfile.open("data/test.txt");
     for (std::string str : pastData) {
-        outfile << str << std::endl;
+        std::cout << str << std::endl;
     }
-    outfile.close();
 }

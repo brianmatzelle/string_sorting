@@ -51,9 +51,6 @@ def main():
         output.write("\n")
     output.close()
 
-    # for filename in os.listdir(os.getcwd()):   
-    #     print(filename)
-    #     proc = subprocess.Popen(["./bin/sort", filename])
-    #     proc.wait()
+    proc = subprocess.run(["bin/sort"])
 
 main()
