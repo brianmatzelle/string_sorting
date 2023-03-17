@@ -2,7 +2,7 @@
 #include "jaro.h"
 #include <fstream>
 
-bool strAreLogicallyEq(std::string company1, std::string company2) {
+bool strAreLogicallyEq(const std::string& company1, const std::string& company2) {
     double dist = jaroWinklerDistance(company1, company2);
     return (dist >= .98) ? true : false;                                 // CHANGE THIS NUMBER TO AFFECT ACCURACEY
 }
@@ -38,8 +38,8 @@ std::vector<Company> buildSortedCompanies(q_vec &lists) {
     return allCompanies;
 }
 
-std::unordered_map<std::string, unsigned> getPastData() {
-    std::unordered_map<std::string, unsigned> pastData;
+str_q getPastDataQ() {
+    str_q pastData;
     std::ifstream infile;
     std::string path = "data/past_companies.txt";
     infile.open(path);
@@ -53,26 +53,48 @@ std::unordered_map<std::string, unsigned> getPastData() {
         std::string line;
         getline(infile, line);
         if (line != "") {
-            pastData[line] = id_num;
+            pastData.push(line);
             id_num++;
         }
     }
     return pastData;
 }
 
-bool alreadyExists(std::unordered_map<std::string, unsigned> &pastData, std::string company) {
-    for( const auto& [key, value] : pastData ) {
-        if (strAreLogicallyEq(key, company))
+std::vector<std::string> getPastDataVec() {
+    std::vector<std::string> pastData;
+    std::ifstream infile;
+    std::string path = "data/past_companies.txt";
+    infile.open(path);
+
+    int id_num = 10000;
+    if (infile.fail()) {
+        std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
+        exit(0);
+    }
+    while (!infile.eof()) {
+        std::string line;
+        getline(infile, line);
+        if (line != "") {
+            pastData.push_back(line);
+            id_num++;
+        }
+    }
+    return pastData;
+}
+
+bool alreadyExists(const std::vector<std::string>& pastData, const std::string& company) {
+    for (std::string str : pastData) {
+        if (strAreLogicallyEq(str, company))
             return true;
     }
     return false;
 }
 
-void printPastData(std::vector<std::string> pastData) {
+void printPastData(const std::vector<std::string>& pastData) {
     std::ofstream outfile;
     outfile.open("data/test.txt");
-    for (const auto& [key, value] : pastData) {
-        outfile << key << ", " << value << std::endl;
+    for (std::string str : pastData) {
+        outfile << str << std::endl;
     }
     outfile.close();
 }

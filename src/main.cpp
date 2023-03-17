@@ -25,7 +25,9 @@ int main(int argc, char *argv[]) {
 
 
     /* GET PAST DATA (pseudo database) */
-    std::vector<std::string> pastData = getPastData();
+    std::vector<std::string> pastDataVec = getPastDataVec();
+    str_q pastDataQ = getPastDataQ();
+    lists.push_back(pastDataQ);
     /* GET PAST DATA (pseudo database) */
 
 
@@ -47,7 +49,7 @@ int main(int argc, char *argv[]) {
             continue;
         }
         // lists[list_i].push(line);     // add the company string to its list's queue
-        else if ( !alreadyExists(pastData, line) )
+        else if ( !alreadyExists(pastDataVec, line) )
             lists[list_i].push(line);
         else
             continue;
