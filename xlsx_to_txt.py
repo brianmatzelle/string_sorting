@@ -6,8 +6,8 @@ import subprocess
 
 def main():
     script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
-    sheet_rel_path = "sheet.xlsx"
-    # sheet_rel_path = "Book4.xlsx"
+    # sheet_rel_path = "sheet.xlsx"
+    sheet_rel_path = "Book4.xlsx"
     sheet_abs_file_path = os.path.join(script_dir, sheet_rel_path)
     output_rel_path = "interim/sheet_contents.txt"
     output_abs_file_path = os.path.join(script_dir, output_rel_path)
@@ -29,7 +29,7 @@ def main():
         lists.append([])
     # INIT LISTS
 
-    # iterate through excel and store data
+    # PARSE XLSX
     list_i = 0      # list_i keeps track of which list we're appending, necessary to handle different file formats
     for i in range(1, sh.max_column+1):                # range starts from 1 because excel sheets start from 1
         if sh.cell(row=1, column=i).value is None and sh.cell(row=2, column=i).value is None:   # if 1st and 2nd elements of the i-th column are empty, assume the whole column is empty
@@ -42,7 +42,7 @@ def main():
             elif cell != "None":            # "None" is the string value xlsx gives to empty cells
                 lists[list_i].append(cell)
         list_i += 1
-    # iterate through excel and store data
+    # PARSE XLSX
 
     for l in lists:
         for j in l:

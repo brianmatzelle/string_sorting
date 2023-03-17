@@ -11,7 +11,6 @@
 int main() {
     // THIS PROGRAM MUST BE RUN FROM THE ROOT DIRECTORY, OTHERWISE FILE STREAMS WON'T OPEN CORRECTLY
 
-
     /* INITIATE LISTS */
     Lists lists;    // Lists defined in misc.h (vec of string lists)
 
@@ -68,8 +67,8 @@ int main() {
     }
 
     path = "data/past_companies.txt";
-    std::ofstream ammendPastData(path);
-    // ammendPastData.open(path);
+    std::ofstream ammendPastData;
+    ammendPastData.open(path);
     if (ammendPastData.fail()) {
         std::cout << "Error writing to past_companies.txt" << std::endl;
     }
