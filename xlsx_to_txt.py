@@ -51,6 +51,6 @@ def main():
         output.write("\n")
     output.close()
 
-    proc = subprocess.run(["bin/sort"])
+    subprocess.run(["bin/sort"])        # run compiled C++ code
 
 main()
