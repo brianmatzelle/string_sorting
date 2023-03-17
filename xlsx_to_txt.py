@@ -28,7 +28,9 @@ def main():
 
     # list_count = int(sys.argv[1])
     list_count = 2 # is this always true?
-    lists = []
+    lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
+    # lists = [[]]
+
     for i in range(list_count):
         lists.append([])
 
@@ -37,7 +39,7 @@ def main():
         for j in range(1, sh.max_column+1):
             cell_obj = sh.cell(row=i, column=j)
             cell = str(cell_obj.value)
-            if cell == "Grand Total" or cell.startswith("List"):
+            if cell == "Grand Total" or cell.startswith("List") or cell.startswith("LIST"):
                     continue
             elif cell != "None":
                 lists[j-1].append(cell)             # j-1 because the loop starts at 1, since excel files start at 1 (otherwise lists[0] would be empty)
