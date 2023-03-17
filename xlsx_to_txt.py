@@ -17,8 +17,6 @@ def main():
     except OSError:
        print("Could not open/read file: ", sheet_rel_path)
        sys.exit()
-    
-    output = open(output_abs_file_path, "w+")
     sh = wrkbk.active
 
     # INIT LISTS
@@ -33,7 +31,7 @@ def main():
     list_i = 0      # list_i keeps track of which list we're appending, necessary to handle different file formats
     for i in range(1, sh.max_column+1):                # range starts from 1 because excel sheets start from 1
         if sh.cell(row=1, column=i).value is None and sh.cell(row=2, column=i).value is None:   # if 1st and 2nd elements of the i-th column are empty, assume the whole column is empty
-            continue
+            continue    # skip empty column
         for j in range(1, sh.max_row+1):
             cell_obj = sh.cell(row=j, column=i)
             cell = str(cell_obj.value)
@@ -44,6 +42,7 @@ def main():
         list_i += 1
     # PARSE XLSX
 
+    output = open(output_abs_file_path, "w+")
     for l in lists:
         for j in l:
             output.write(j)
