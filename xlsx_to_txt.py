@@ -7,7 +7,8 @@ def main():
     script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
     data_rel_path = "data/past_companies.txt"
     data_abs_file_path = os.path.join(script_dir, data_rel_path)
-    sheet_rel_path = "sheet.xlsx"
+    # sheet_rel_path = "sheet.xlsx"
+    sheet_rel_path = "Book4.xlsx"
     sheet_abs_file_path = os.path.join(script_dir, sheet_rel_path)
     output_rel_path = "interim/sheet_contents.txt"
     output_abs_file_path = os.path.join(script_dir, output_rel_path)
@@ -28,8 +29,8 @@ def main():
 
     # list_count = int(sys.argv[1])
     list_count = 2 # is this always true?
-    lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
-    # lists = [[]]
+    # lists = []                            # BUG: this line should work, but sometimes throws a list index out of range error
+    lists = [[]]
 
     for i in range(list_count):
         lists.append([])

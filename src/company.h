@@ -20,7 +20,7 @@ public:
         for (unsigned i = 0; i < c.list.size(); i++) {
             os << c.list[i];
             if (i < c.list.size()-1) 
-                os << "|";
+                os << " # ";                      // SEPARATER BETWEEN COMPANIES
         }
         os << "-";
         return os;
