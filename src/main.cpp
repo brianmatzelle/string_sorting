@@ -71,6 +71,7 @@ int main() {
     ammendPastData.open(path);
     if (ammendPastData.fail()) {
         std::cout << "Error writing to past_companies.txt" << std::endl;
+        return 0;
     }
     if (ammendPastData.is_open()) {
         for (std::string str: pastDataVec)
