@@ -9,6 +9,7 @@ class Company {
 public:
     Company();
     Company(std::string name);
+    Company(const std::string& name, const unsigned& id);
     bool isSimilar(std::string name);
     bool operator==(const Company& rhs) { return (this->companyName == rhs.companyName) ? true : false; };
     void addAlias(std::string alias);
@@ -29,7 +30,7 @@ private:
     std::string companyName;
     std::vector<std::string> list;
     std::string id;                 // id = first 2 letters from list[0] + id_num
-    int id_num;
+    unsigned id_num;
 };
 
 

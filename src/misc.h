@@ -6,17 +6,17 @@
 #include <unordered_map>
 #include "company.h"
 
-typedef std::set<std::string> str_s;      // each list is stored in a queue
-typedef std::vector<str_s> set_vec;           // the lists (queues) are then stored in a vector
+typedef std::vector<std::string> str_v;      // each list is stored in a queue
+typedef std::vector<str_v> Lists;           // the lists (queues) are then stored in a vector
 
-std::vector<Company> buildSortedCompanies(const set_vec &lists);
+std::vector<Company> buildSortedCompanies(const Lists &lists);
 bool strAreLogicallyEq(const std::string& company1, const std::string& company2);
-str_s getPastDataSet();
-std::vector<std::string> getPastDataVec();
+// str_s getPastDataSet();
+str_v getPastDataVec();
 bool alreadyExists(const std::vector<std::string>& pastData, const std::string& company);
 
 /* DEBUG */
-void printPastData(str_s pastData);
+void printPastData(str_v pastData);
 /* DEBUG */
 
 #endif

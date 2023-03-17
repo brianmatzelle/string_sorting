@@ -1,5 +1,5 @@
 DIRECTORY = NICK_sort_companies
-EXE = main
+EXE = sort
 
 REPODIR = ../$(DIRECTORY)
 TARFILE = $(DIRECTORY).tar

@@ -8,7 +8,23 @@ Company::Company() {
 Company::Company(std::string name) {
     this->companyName = name;
     this->list.push_back(name);
-    // this->id =
+}
+
+Company::Company(const std::string& name, const unsigned& id) {
+    this->companyName = name;
+    this->list.push_back(name);
+    this->id_num = id;
+    std::string firstTwoLetters = "";
+    int validCharCount = 0;
+    int i = 0;
+    while (validCharCount < 2) {
+        if (name[i] > 64 && name[i] < 91) {
+            firstTwoLetters += name[i];
+            validCharCount++;
+        }
+        i++;
+    }
+    this->id = firstTwoLetters + std::to_string(this->id_num);
 }
 
 bool Company::isSimilar(std::string name) {

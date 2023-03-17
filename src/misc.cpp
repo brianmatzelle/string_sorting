@@ -7,12 +7,13 @@ bool strAreLogicallyEq(const std::string& company1, const std::string& company2)
     return (dist >= .9936) ? true : false;                                 // CHANGE THIS NUMBER TO AFFECT ACCURACEY (found that this number is best when testing)
 }
 
-std::vector<Company> buildSortedCompanies(const set_vec &lists) {
+std::vector<Company> buildSortedCompanies(const Lists &lists) {
     std::vector<Company> allCompanies;
-    for (str_s list: lists) {               // loop through the vector, access each list
+    unsigned id = 10000;
+    for (str_v list: lists) {               // loop through the vector, access each list
         for (std::string name : list) {     // loop through the list, find respective company and add (or create new)
             if (allCompanies.empty()) {
-                allCompanies.push_back(Company(name));
+                allCompanies.push_back(Company(name, id));  // if first element
                 continue;
             }
             for (Company &c: allCompanies) {
@@ -21,7 +22,7 @@ std::vector<Company> buildSortedCompanies(const set_vec &lists) {
                         c.addAlias(name);                      // if so, add alias to the company
                     }
                     else {
-                        allCompanies.push_back(Company(name)); // no companies match this company, create a new one 
+                        allCompanies.push_back(Company(name, id)); // no companies match this company, create a new one 
                     }
                 }
                 else {
@@ -29,33 +30,34 @@ std::vector<Company> buildSortedCompanies(const set_vec &lists) {
                         c.addAlias(name);
                 }
             }
-            // q.pop();
+            id++;
         }
+        id++;
     }
     return allCompanies;
 }
 
-str_s getPastDataSet() {
-    str_s pastData;
-    std::ifstream infile;
-    std::string path = "data/past_companies.txt";
-    infile.open(path);
+// str_s getPastDataSet() {
+//     str_s pastData;
+//     std::ifstream infile;
+//     std::string path = "data/past_companies.txt";
+//     infile.open(path);
 
-    int id_num = 10000;
-    if (infile.fail()) {
-        std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
-        exit(0);
-    }
-    while (!infile.eof()) {
-        std::string line;
-        getline(infile, line);
-        if (line != "") {
-            pastData.insert(line);
-            id_num++;
-        }
-    }
-    return pastData;
-}
+//     int id_num = 10000;
+//     if (infile.fail()) {
+//         std::cout << "ERROR: could not open \"" << path << "\", does this file exist?" << std::endl;
+//         exit(0);
+//     }
+//     while (!infile.eof()) {
+//         std::string line;
+//         getline(infile, line);
+//         if (line != "") {
+//             pastData.insert(line);
+//             id_num++;
+//         }
+//     }
+//     return pastData;
+// }
 
 std::vector<std::string> getPastDataVec() {
     std::vector<std::string> pastData;

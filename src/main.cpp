@@ -13,23 +13,23 @@ int main(int argc, char *argv[]) {
 
 
     /* INITIATE LISTS */
-    set_vec lists;    // q_vec defined in misc.h (vec of lists)
+    Lists lists;    // Lists defined in misc.h (vec of string lists)
+
+        /* GET PAST DATA (pseudo database) */
+        std::vector<std::string> pastDataVec = getPastDataVec();
+        lists.push_back(pastDataVec);
+        /* GET PAST DATA (pseudo database) */
+        
     if (argc > 1) {
         std::cout << "ERROR: no arguments needed for this program." << std::endl;
         return 0;
     }
     int list_count = 2;     // is this always true? same line in python file
     for (int i = 0; i < list_count; i++) {
-        lists.push_back(str_s());           // each list is a set, the sets are then stored in this var
+        lists.push_back(str_v());           // each list is a set, the sets are then stored in this var
     }
     /* INITIATE LISTS */
 
-
-    /* GET PAST DATA (pseudo database) */
-    std::vector<std::string> pastDataVec = getPastDataVec();
-    // str_s pastDataSet = getPastDataSet();
-    // lists.push_back(pastDataSet);
-    /* GET PAST DATA (pseudo database) */
 
     // std::set<std::string> pastDataSet;
     // for (std::string str : pastDataVec)
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
         // lists[list_i].push(line);     // add the company string to its list's queue
         else if ( !alreadyExists(pastDataVec, line) ) {
             pastDataVec.push_back(line);
-            lists[list_i].insert(line);
+            lists[list_i].push_back(line);
         }
         else
             continue;
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::ofstream ammendPastData;
-    ammendPastData.open("data/past_companies.txt", std::ios::app);
+    ammendPastData.open("data/past_companies.txt");
     if (ammendPastData.is_open()) {
         for (std::string str: pastDataVec)
             ammendPastData << str << "\n";
