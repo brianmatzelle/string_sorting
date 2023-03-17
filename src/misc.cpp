@@ -4,42 +4,39 @@
 
 bool strAreLogicallyEq(const std::string& company1, const std::string& company2) {
     double dist = jaroWinklerDistance(company1, company2);
-    return (dist >= .98) ? true : false;                                 // CHANGE THIS NUMBER TO AFFECT ACCURACEY
+    return (dist >= .9936) ? true : false;                                 // CHANGE THIS NUMBER TO AFFECT ACCURACEY (found that this number is best when testing)
 }
 
-std::vector<Company> buildSortedCompanies(q_vec &lists) {
+std::vector<Company> buildSortedCompanies(const set_vec &lists) {
     std::vector<Company> allCompanies;
-    for (str_q q: lists) {               // loop through the vector, access each list
-        // q.pop();                     // not sure why these pop()s are here, they might be wrong. not deleting in case a bug is found
-        // q.pop();
-        while (!q.empty()) {
-            std::string name = q.front();
+    for (str_s list: lists) {               // loop through the vector, access each list
+        for (std::string name : list) {     // loop through the list, find respective company and add (or create new)
             if (allCompanies.empty()) {
                 allCompanies.push_back(Company(name));
                 continue;
             }
             for (Company &c: allCompanies) {
-                if (allCompanies.back() == c) {
-                    if (!c.isSimilar(name)) {
-                        allCompanies.push_back(Company(name));
+                if (allCompanies.back() == c) {         // this if statement will trigger if no matching company is found (we reached the last element in the vector)
+                    if (c.isSimilar(name)) {                   // check if its similar to the last element
+                        c.addAlias(name);                      // if so, add alias to the company
                     }
                     else {
-                        c.addAlias(name);
+                        allCompanies.push_back(Company(name)); // no companies match this company, create a new one 
                     }
                 }
                 else {
-                    if (c.isSimilar(name))
+                    if (c.isSimilar(name))                      // create new company if no simliar companies are found
                         c.addAlias(name);
                 }
             }
-            q.pop();
+            // q.pop();
         }
     }
     return allCompanies;
 }
 
-str_q getPastDataQ() {
-    str_q pastData;
+str_s getPastDataSet() {
+    str_s pastData;
     std::ifstream infile;
     std::string path = "data/past_companies.txt";
     infile.open(path);
@@ -53,7 +50,7 @@ str_q getPastDataQ() {
         std::string line;
         getline(infile, line);
         if (line != "") {
-            pastData.push(line);
+            pastData.insert(line);
             id_num++;
         }
     }

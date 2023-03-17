@@ -6,34 +6,37 @@
 #include "jaro.h"
 #include "company.h"
 #include "misc.h"
+#include <set>
 
 int main(int argc, char *argv[]) {
     // THIS PROGRAM MUST BE RUN FROM THE ROOT DIRECTORY, OTHERWISE FILE STREAMS WON'T OPEN CORRECTLY
 
 
     /* INITIATE LISTS */
-    q_vec lists;    // q_vec defined in misc.h (vec of lists)
+    set_vec lists;    // q_vec defined in misc.h (vec of lists)
     if (argc > 1) {
         std::cout << "ERROR: no arguments needed for this program." << std::endl;
         return 0;
     }
     int list_count = 2;     // is this always true? same line in python file
     for (int i = 0; i < list_count; i++) {
-        lists.push_back(str_q());           // each list is a queue, the queues are then stored in this var
+        lists.push_back(str_s());           // each list is a set, the sets are then stored in this var
     }
     /* INITIATE LISTS */
 
 
     /* GET PAST DATA (pseudo database) */
     std::vector<std::string> pastDataVec = getPastDataVec();
-    str_q pastDataQ = getPastDataQ();
-    lists.push_back(pastDataQ);
+    // str_s pastDataSet = getPastDataSet();
+    // lists.push_back(pastDataSet);
     /* GET PAST DATA (pseudo database) */
 
+    // std::set<std::string> pastDataSet;
+    // for (std::string str : pastDataVec)
+    //     pastDataSet.insert(str);
 
     /* PARSE THROUGH PYTHON GENERATED LIST */
     std::ifstream parsedFile;
-    std::ofstream sortedOutput;
     std::string path = "interim/sheet_contents.txt";
     parsedFile.open(path);          // file from python program, contains companies as strings
     int list_i = 0;                // to keep track of which list we're on, so we know which queue to add the company string to
@@ -49,8 +52,10 @@ int main(int argc, char *argv[]) {
             continue;
         }
         // lists[list_i].push(line);     // add the company string to its list's queue
-        else if ( !alreadyExists(pastDataVec, line) )
-            lists[list_i].push(line);
+        else if ( !alreadyExists(pastDataVec, line) ) {
+            pastDataVec.push_back(line);
+            lists[list_i].insert(line);
+        }
         else
             continue;
     }
@@ -58,10 +63,20 @@ int main(int argc, char *argv[]) {
 
     std::vector<Company> allCompanies = buildSortedCompanies(lists);
 
-    sortedOutput.open("interim/sorted_companies.txt", std::ios_base::app);
+    std::ofstream sortedOutput;
+    sortedOutput.open("interim/sorted_companies.txt");
     if (sortedOutput.is_open()) {
         for (Company c: allCompanies)
             sortedOutput << c << "\n";
         sortedOutput.close();
     }
+
+    std::ofstream ammendPastData;
+    ammendPastData.open("data/past_companies.txt", std::ios::app);
+    if (ammendPastData.is_open()) {
+        for (std::string str: pastDataVec)
+            ammendPastData << str << "\n";
+        ammendPastData.close();
+    }
+
 }
