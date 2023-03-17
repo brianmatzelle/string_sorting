@@ -54,9 +54,7 @@ int main() {
 
     path = "interim/sorted_companies.txt";
     std::ofstream sortedOutput(path);
-    // sortedOutput.open(path);
     if (sortedOutput.fail()) {
-        // std::cout << "Error in main.cpp, could not open \"" <<  path << "\", does this file exist?" << std::endl;
         std::cout << "Error creating sorted_output.txt" << std::endl;
         return 0;
     }
