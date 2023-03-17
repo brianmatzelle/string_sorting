@@ -2,13 +2,12 @@ import openpyxl
 from difflib import SequenceMatcher
 import sys
 import os
+import subprocess
 
 def main():
     script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
-    data_rel_path = "data/past_companies.txt"
-    data_abs_file_path = os.path.join(script_dir, data_rel_path)
-    # sheet_rel_path = "sheet.xlsx"
-    sheet_rel_path = "Book4.xlsx"
+    sheet_rel_path = "sheet.xlsx"
+    # sheet_rel_path = "Book4.xlsx"
     sheet_abs_file_path = os.path.join(script_dir, sheet_rel_path)
     output_rel_path = "interim/sheet_contents.txt"
     output_abs_file_path = os.path.join(script_dir, output_rel_path)
@@ -18,11 +17,6 @@ def main():
     except OSError:
        print("Could not open/read file: ", sheet_rel_path)
        sys.exit()
-    try:
-        past_data = open(data_abs_file_path, "r+")
-    except OSError:
-        print("Could not open/read file: ", data_rel_path)
-        sys.exit()
     
     output = open(output_abs_file_path, "w+")
     sh = wrkbk.active
@@ -55,7 +49,11 @@ def main():
             output.write(j)
             output.write("\n")
         output.write("\n")
+    output.close()
 
-    return list_count
+    # for filename in os.listdir(os.getcwd()):   
+    #     print(filename)
+    #     proc = subprocess.Popen(["./bin/sort", filename])
+    #     proc.wait()
 
 main()

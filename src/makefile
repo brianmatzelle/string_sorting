@@ -5,7 +5,7 @@ REPODIR = ../$(DIRECTORY)
 TARFILE = $(DIRECTORY).tar
 
 FLAGS = -Wall -Wextra -g
-CC = g++
+CC = g++ -std=c++20
 BIN = ../bin
 OBJ = ../obj
 

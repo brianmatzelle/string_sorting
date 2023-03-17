@@ -8,7 +8,7 @@
 #include "misc.h"
 #include <set>
 
-int main(int argc, char *argv[]) {
+int main() {
     // THIS PROGRAM MUST BE RUN FROM THE ROOT DIRECTORY, OTHERWISE FILE STREAMS WON'T OPEN CORRECTLY
 
 
@@ -19,11 +19,11 @@ int main(int argc, char *argv[]) {
         std::vector<std::string> pastDataVec = getPastDataVec();
         lists.push_back(pastDataVec);
         /* GET PAST DATA (pseudo database) */
-        
-    if (argc > 1) {
-        std::cout << "ERROR: no arguments needed for this program." << std::endl;
-        return 0;
-    }
+
+    // if (argc > 1) {
+    //     std::cout << "ERROR: no arguments needed for this program." << std::endl;
+    //     return 0;
+    // }
     int list_count = 2;     // is this always true? same line in python file
     for (int i = 0; i < list_count; i++) {
         lists.push_back(str_v());           // each list is a set, the sets are then stored in this var
