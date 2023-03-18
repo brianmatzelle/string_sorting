@@ -7,8 +7,9 @@ import subprocess
 def main():
     script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
     # sheet_rel_path = "sheet.xlsx"
-    sheet_rel_path = "Book4.xlsx"
-    sheet_abs_file_path = os.path.join(script_dir, sheet_rel_path)
+    # sheet_rel_path = "Book4.xlsx"
+    # sheet_abs_file_path = os.path.join(script_dir, sheet_rel_path)
+    sheet_abs_file_path = sys.argv[1]
     output_rel_path = "interim/sheet_contents.txt"
     output_abs_file_path = os.path.join(script_dir, output_rel_path)
 
