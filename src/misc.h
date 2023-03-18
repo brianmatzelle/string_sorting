@@ -11,7 +11,6 @@ typedef std::vector<str_v> Lists;           // the lists (queues) are then store
 
 std::vector<Company> buildSortedCompanies(const Lists &lists);
 bool strAreLogicallyEq(const std::string& company1, const std::string& company2);
-// str_s getPastDataSet();
 str_v getPastDataVec();
 bool alreadyExists(const std::vector<std::string>& pastData, const std::string& company);
 
