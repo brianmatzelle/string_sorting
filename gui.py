@@ -29,7 +29,7 @@ class GUI(QWidget):
         self.setAcceptDrops(True)
 
         # Create a label to display the file names
-        self.label = QLabel('Drop .xlsx file here')
+        self.label = QLabel('Drop .xlsx files here')
         self.label.setAlignment(Qt.AlignCenter)
 
         # Create a textbox for user input
