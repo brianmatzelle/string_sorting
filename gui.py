@@ -41,11 +41,13 @@ class GUI(QWidget):
         # Create ID label
         self.id = QLabel('ID: _______')
         self.id.setAlignment(Qt.AlignCenter)
+        self.id.setTextInteractionFlags(Qt.TextSelectableByMouse)
 
         # Create Company label
         self.company = QLabel('Data: ')
         self.company.setAlignment(Qt.AlignCenter)
         self.company.setWordWrap(True)
+        self.company.setTextInteractionFlags(Qt.TextSelectableByMouse)
 
         self.errorWarn = QLabel('')
         self.errorWarn.setAlignment(Qt.AlignCenter)
