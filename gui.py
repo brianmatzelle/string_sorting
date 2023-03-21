@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QToolButton
 from PyQt5.QtCore import Qt, QMimeData
-from PyQt5.QtGui import QDragEnterEvent, QDragMoveEvent, QDropEvent
+from PyQt5.QtGui import QDragEnterEvent, QDragMoveEvent, QDropEvent, QClipboard, QIcon
 import subprocess 
 
 def find_id(database_strings, alias):
@@ -23,6 +23,7 @@ class GUI(QWidget):
     def __init__(self):
         super().__init__()
         
+        self.setWindowTitle('UBS Sorting Hat')
         self.database_strings = []
 
         # Enable drag and drop
@@ -49,6 +50,16 @@ class GUI(QWidget):
         self.company.setWordWrap(True)
         self.company.setTextInteractionFlags(Qt.TextSelectableByMouse)
 
+        # Create copy button
+        self.copy_button = QToolButton()
+
+        # Set the icon for the button
+        self.copy_icon = QIcon('copy.png')
+        self.copy_button.setIcon(self.copy_icon)
+
+        # Connect the button click event to the copy function
+        self.copy_button.clicked.connect(self.copy)
+
         self.errorWarn = QLabel('')
         self.errorWarn.setAlignment(Qt.AlignCenter)
 
@@ -59,6 +70,7 @@ class GUI(QWidget):
         vbox = QVBoxLayout()
         vbox.addWidget(self.label)
         vbox.addWidget(self.id)
+        vbox.addWidget(self.copy_button)
         vbox.addWidget(self.company)
         vbox.addWidget(self.errorWarn)
         vbox.addLayout(hbox)
@@ -126,9 +138,19 @@ class GUI(QWidget):
         self.company.setText(f"Data: {company_id[1]}")
 
 
+    def copy(self):
+        # Get the application clipboard
+        clipboard = QApplication.clipboard()
+
+        # Get the text from the label
+        text = self.company.text()
+
+        # Set the text to the clipboard
+        clipboard.setText(text, QClipboard.Clipboard)
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = GUI()
-    widget.resize(400, 300)
+    widget.resize(640, 480)
     widget.show()
     sys.exit(app.exec_())
